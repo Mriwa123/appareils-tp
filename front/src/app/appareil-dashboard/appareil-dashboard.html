@@ -1,0 +1,37 @@
+<h2>Mes appareils</h2>
+
+@if (error()) {
+  <div class="alert alert-danger">{{ error() }}</div>
+}
+
+<ul class="list-unstyled">
+  @for (a of appareils(); track a._id) {
+    <li class="card mb-3">
+      <div class="card-body">
+        <h5 [class.text-success]="a.status === 'On'" [class.text-danger]="a.status === 'Off'">
+          {{ a.name }} - {{ a.status }}
+        </h5>
+        <button class="btn btn-sm me-2" [class.btn-success]="a.status === 'Off'" [class.btn-secondary]="a.status === 'On'" (click)="onSwitch(a)">
+          {{ a.status === 'On' ? 'Switch off' : 'Switch on' }}
+        </button>
+        <a class="btn btn-info btn-sm me-2" [routerLink]="['/appareils', a._id]">Detail</a>
+        <button class="btn btn-danger btn-sm" (click)="onDelete(a)">Delete</button>
+      </div>
+    </li>
+  }
+</ul>
+
+<div class="mb-4">
+  <button class="btn btn-success me-2" (click)="onSwitchAll('On')">Switch on all</button>
+  <button class="btn btn-danger" (click)="onSwitchOffAll()">Switch off all</button>
+</div>
+
+<h4>Ajouter un appareil</h4>
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Nom" [(ngModel)]="newName" name="newName" />
+  <select class="form-select" [(ngModel)]="newStatus" name="newStatus">
+    <option value="On">On</option>
+    <option value="Off">Off</option>
+  </select>
+  <button class="btn btn-primary" (click)="onAdd()">Ajouter</button>
+</div>

@@ -1,0 +1,15 @@
+<a routerLink="/appareils" class="btn btn-link">← Retour</a>
+
+@if (error()) {
+  <div class="alert alert-warning">{{ error() }}</div>
+} @else if (appareil(); as a) {
+  <div class="card">
+    <div class="card-body">
+      <h3>{{ a.name }}</h3>
+      <p>Statut : {{ a.status }}</p>
+      <p class="text-muted">ID : {{ a._id }}</p>
+    </div>
+  </div>
+} @else {
+  <div class="text-center"><div class="spinner-border"></div></div>
+}
